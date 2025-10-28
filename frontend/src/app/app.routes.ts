@@ -6,9 +6,11 @@ import { authGuard } from './guards/auth-guard';
 import { Roles } from './pages/dashboard/roles/roles/roles';
 import { Users } from './pages/dashboard/users/users/users';
 import { Inicio } from './pages/home/inicio/inicio';
+import { Conductor } from './pages/indriver/conductor/conductor';
 
 export const routes: Routes = [
   { path: '', component: Inicio },
+  { path: 'conductor', component: Conductor },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   {
@@ -19,6 +21,6 @@ export const routes: Routes = [
       { path: '', redirectTo: 'usuarios', pathMatch: 'full' }
     ]
   },
-  // { path: '**', redirectTo: 'login' }
+   { path: '**', redirectTo: '' }
 
 ];
