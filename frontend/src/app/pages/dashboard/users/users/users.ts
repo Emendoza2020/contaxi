@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Roles } from '../../../../services/roles';
+import { Rol } from '../../../../services/rol';
 import { User } from '../../../../services/user';
 
 @Component({
@@ -11,12 +11,11 @@ import { User } from '../../../../services/user';
   templateUrl: './users.html',
   styleUrl: './users.css'
 })
-
-export class Users implements OnInit {
+export class Users {
   usuarios: any[] = [];
   roles: any[] = [];
 
-  constructor(private usersService: User, private rolesService: Roles) {}
+  constructor(private usersService: User, private rolesService: Rol) {}
 
   ngOnInit() {
     this.rolesService.getRoles().subscribe((r: any) => (this.roles = r));

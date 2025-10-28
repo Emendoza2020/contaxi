@@ -7,6 +7,8 @@
             <th class="py-2 px-4">Nombre</th>
             <th class="py-2 px-4">Correo</th>
             <th class="py-2 px-4">Rol</th>
+            <th class="py-2 px-4">Estado</th>
+            <th class="py-2 px-4">Acción</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +20,15 @@
                 <select [(ngModel)]="u.id_rol" (change)="actualizarRol(u)" class="border p-2 rounded-lg">
             <option *ngFor="let r of roles" [value]="r.id">{{ r.nombre }}</option>
           </select>
+            </td>
+            <td class="py-2 px-4">{{ u.estado }}</td>
+            <td class="py-2 px-4">
+                <button class="flex-1 rounded-xl bg-yellow-500 px-4 py-2 font-semibold text-gray-900 hover:bg-yellow-400 transition-all">
+                      👁️ Editar
+                    </button>
+                <button class="rounded-xl bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-500 disabled:bg-gray-600 transition-all">
+                      🔄 Eliminar
+                    </button>
             </td>
         </tr>
     </tbody>

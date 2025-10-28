@@ -5,9 +5,11 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { authGuard } from './guards/auth-guard';
 import { Roles } from './pages/dashboard/roles/roles/roles';
 import { Users } from './pages/dashboard/users/users/users';
+import { Inicio } from './pages/home/inicio/inicio';
 
 export const routes: Routes = [
-  { path: '', component: Login },
+  { path: '', component: Inicio },
+  { path: 'login', component: Login },
   { path: 'register', component: Register },
   {
     path:'dashboard', component: Dashboard, canActivate: [authGuard],
@@ -17,5 +19,6 @@ export const routes: Routes = [
       { path: '', redirectTo: 'usuarios', pathMatch: 'full' }
     ]
   },
-  { path: '**', redirectTo: '' }
+  // { path: '**', redirectTo: 'login' }
+
 ];

@@ -1,1 +1,32 @@
-<p>roles works!</p>
+<div class="bg-white rounded-lg p-6 shadow-md">
+    <h2 class="text-2xl font-semibold mb-4">Gestión de Roles</h2>
+
+    <div class="flex mb-4">
+        <input [(ngModel)]="nuevoRol" type="text" placeholder="Nuevo rol" class="border p-2 rounded-l w-full" />
+        <button (click)="agregarRol()" class="bg-blue-600 text-white px-4 rounded-r">Agregar</button>
+    </div>
+
+    <table class="min-w-full bg-white border">
+        <thead>
+            <tr class="bg-gray-200 text-left">
+                <th class="py-2 px-4">ID</th>
+                <th class="py-2 px-4">Nombre</th>
+                <th class="py-2 px-4">Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rol of roles" class="border-t">
+                <td class="py-2 px-4">{{ rol.id }}</td>
+                <td class="py-2 px-4">{{ rol.nombre }}</td>
+                <td class="py-2 px-4">
+                    <button class="flex-1 rounded-xl bg-yellow-500 px-4 py-2 font-semibold text-gray-900 hover:bg-yellow-400 transition-all">
+                      👁️ Editar
+                    </button>
+                    <button class="rounded-xl bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-500 disabled:bg-gray-600 transition-all">
+                      🔄 Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
