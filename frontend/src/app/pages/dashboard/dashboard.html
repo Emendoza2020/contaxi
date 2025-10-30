@@ -1,15 +1,26 @@
-<div class="flex min-h-screen bg-gray-100">
-    <aside class="w-64 bg-blue-700 text-white p-6 flex flex-col justify-between">
-        <div>
-            <h2 class="text-xl font-bold mb-6">Panel Admin</h2>
-            <nav class="flex flex-col gap-3">
-                <a routerLink="usuarios" routerLinkActive="bg-blue-900 p-2 rounded">Usuarios</a>
-                <a routerLink="roles" routerLinkActive="bg-blue-900 p-2 rounded">Roles</a>
-            </nav>
+<section class="min-h-screen bg-blue-700 text-white flex flex-col">
+    <header class="flex justify-between items-center p-6 bg-blue-800 shadow-lg">
+        <div class="text-4xl font-bold tracking-wide">
+            Con<span class="text-yellow-400">Taxi</span>
         </div>
-        <button (click)="logout()" class="bg-red-500 px-4 py-2 rounded hover:bg-red-600">Cerrar sesión</button>
-    </aside>
-    <main class="flex-1 p-8">
-        <router-outlet></router-outlet>
-    </main>
-</div>
+        <button (click)="logout()" class="bg-yellow-400 text-blue-900 font-semibold px-4 py-2 rounded-lg hover:bg-yellow-300 transition">
+      Cerrar sesión
+    </button>
+    </header>
+
+    <div class="flex min-h-screen bg-gray-100">
+        <aside class="w-64 bg-blue-700 text-white p-6 flex flex-col justify-between">
+            <div>
+                <h2 class="text-xl font-bold mb-6">Panel Admin</h2>
+                <nav class="flex flex-col gap-3">
+                    <a routerLink="usuarios" routerLinkActive="bg-blue-900 p-2 rounded">Usuarios</a>
+                    <a routerLink="roles" routerLinkActive="bg-blue-900 p-2 rounded">Roles</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-8">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</section>
