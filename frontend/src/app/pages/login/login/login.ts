@@ -27,5 +27,5 @@ export class Login {
       error: () => alert('Credenciales incorrectas')
     });
   }
-  
+
 }

@@ -1,0 +1,13 @@
+form input,
+form select {
+    transition: all 0.2s ease-in-out;
+}
+
+form input:focus,
+form select:focus {
+    transform: scale(1.02);
+}
+
+img {
+    object-fit: cover;
+}
