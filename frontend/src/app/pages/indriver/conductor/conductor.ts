@@ -13,6 +13,9 @@ import { RouterLink } from '@angular/router';
 export class Conductor {
    driver = {
     nombre: '',
+    apellido:'',
+    ci:'',
+    direccion:'',
     telefono: '',
     ciudad: '',
     vehiculo: '',

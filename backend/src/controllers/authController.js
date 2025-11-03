@@ -1,52 +1,74 @@
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { Usuario, Persona, Rol } = require('../models');
-const dotenv = require('dotenv');
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { Usuario, Rol, Persona } from '../models/index.js';
+import dotenv from 'dotenv';
 dotenv.config();
 
-exports.registrar = async (req, res) => {
-  try {
-    const { nombres, apellidos, ci, telefono, direccion, email, password, id_rol } = req.body;
+const secretKey = process.env.JWT_SECRET || 'super_secret_key';
 
-    const hashed = await bcrypt.hash(password, 10);
-    const persona = await Persona.create({ nombres, apellidos, ci, telefono, direccion });
-    const usuario = await Usuario.create({
-      email,
-      password: hashed,
-      id_persona: persona.id,
-      id_rol: id_rol || 2 // por defecto 'user'
-    });
+// 🔹 Registro de usuario
+export const register = async(req, res) => {
+    try {
+        const { nombres, apellidos, ci, telefono, direccion, email, password, rol } = req.body;
 
-    res.json({ message: 'Usuario registrado exitosamente', usuario });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Error en el registro', error: err.message });
-  }
+        // Validar duplicado
+        const existe = await Usuario.findOne({ where: { email } });
+        if (existe) return res.status(400).json({ message: 'El email ya está registrado' });
+
+        // Crear persona
+        const persona = await Persona.create({ nombres, apellidos, ci, telefono, direccion });
+
+        // Buscar rol
+        const rolDb = await Rol.findOne({ where: { nombre: rol } });
+        if (!rolDb) return res.status(400).json({ message: 'Rol no válido' });
+
+        // Encriptar password
+        const salt = await bcrypt.genSalt(10);
+        const hash = await bcrypt.hash(password, salt);
+
+        const usuario = await Usuario.create({
+            id_persona: persona.id_persona,
+            id_rol: rolDb.id_rol,
+            email,
+            password: hash
+        });
+
+        res.json({ message: 'Usuario registrado correctamente', usuario });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error en el registro', error });
+    }
 };
 
-exports.login = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const usuario = await Usuario.findOne({ where: { email }, include: [Rol, Persona] });
+// 🔹 Login
+export const login = async(req, res) => {
+    try {
+        const { email, password } = req.body;
 
-    if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
+        const usuario = await Usuario.findOne({
+            where: { email },
+            include: [{ model: Rol }, { model: Persona }]
+        });
+        if (!usuario) return res.status(400).json({ message: 'Usuario no encontrado' });
 
-    const valido = await bcrypt.compare(password, usuario.password);
-    if (!valido) return res.status(401).json({ message: 'Credenciales incorrectas' });
+        const validPassword = await bcrypt.compare(password, usuario.password);
+        if (!validPassword) return res.status(400).json({ message: 'Contraseña incorrecta' });
 
-    const token = jwt.sign({ id: usuario.id }, process.env.JWT_SECRET, { expiresIn: '2h' });
+        const token = jwt.sign({ id: usuario.id_usuario, rol: usuario.Rol.nombre },
+            secretKey, { expiresIn: '8h' }
+        );
 
-    res.json({
-      message: 'Login correcto',
-      token,
-      usuario: {
-        id: usuario.id,
-        email: usuario.email,
-        rol: usuario.Rol.nombre,
-        persona: usuario.Persona
-      }
-    });
-  } catch (err) {
-    res.status(500).json({ message: 'Error al iniciar sesión', error: err.message });
-  }
+        res.json({
+            message: 'Login exitoso',
+            token,
+            usuario: {
+                id: usuario.id_usuario,
+                nombre: usuario.Persona.nombres,
+                rol: usuario.Rol.nombre,
+                email: usuario.email
+            }
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Error en el login', error });
+    }
 };

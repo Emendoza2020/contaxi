@@ -1,24 +1,25 @@
-const jwt = require('jsonwebtoken');
-const { Usuario, Rol, Persona } = require('../models');
-const dotenv = require('dotenv');
-dotenv.config();
+import jwt from 'jsonwebtoken';
+const secretKey = process.env.JWT_SECRET || 'super_secret_key';
 
-exports.verifyToken = async (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) return res.status(403).json({ message: 'Token requerido' });
+export const verificarToken = (req, res, next) => {
+    const token = req.headers['authorization']?.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'Token n o proporcionado' });
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await Usuario.findByPk(decoded.id, { include: [Rol, Persona] });
-    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
-    req.user = user;
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: 'Token inválido' });
-  }
+    try {
+        const decoded = jwt.verify(token, secretKey);
+        req.usuario = decoded;
+        next();
+    } catch (err) {
+        res.status(401).json({ message: 'Token inválido o expirado' });
+    }
 };
 
-exports.isAdmin = (req, res, next) => {
-  if (req.user.Rol.nombre === 'admin') next();
-  else res.status(403).json({ message: 'Requiere rol administrador' });
+export const verificarRol = (...rolesPermitidos) => {
+    return (req, res, next) => {
+        const rol = req.usuario ?.rol;
+        if (!rolesPermitidos.includes(rol)) {
+            return res.status(403).json({ message: 'Acceso denegado' });
+        }
+        next();
+    };
 };
