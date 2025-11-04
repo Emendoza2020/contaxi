@@ -1,12 +1,16 @@
 import express from 'express';
-import { listarPersonas, crearPersona, actualizarPersona, eliminarPersona } from '../controllers/personaController.js';
-import { verificarToken, verificarRol } from '../middleware/auth.js';
+import { createPersona, getPersonas, getPersonaById, updatePersona, deletePersona } from '../controllers/personaController.js';
+import { verifyToken, checkRole } from '../middlewares/authJwt.js';
 
 const router = express.Router();
 
-router.get('/', verificarToken, listarPersonas);
-router.post('/', verificarToken, verificarRol('Administrador'), crearPersona);
-router.put('/:id', verificarToken, verificarRol('Administrador'), actualizarPersona);
-router.delete('/:id', verificarToken, verificarRol('Administrador'), eliminarPersona);
+// Solo admin puede crear, actualizar y eliminar
+router.post('/', verifyToken, checkRole(['admin']), createPersona);
+router.put('/:id', verifyToken, checkRole(['admin']), updatePersona);
+router.delete('/:id', verifyToken, checkRole(['admin']), deletePersona);
+
+// Lectura abierta para usuarios autenticados
+router.get('/', verifyToken, getPersonas);
+router.get('/:id', verifyToken, getPersonaById);
 
 export default router;

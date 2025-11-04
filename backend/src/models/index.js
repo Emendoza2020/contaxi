@@ -37,15 +37,4 @@ SolicitudViaje.belongsTo(Conductor, { foreignKey: 'id_conductor' });
 Usuario.hasMany(Log, { foreignKey: 'id_usuario' });
 Log.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 
-export {
-    sequelize,
-    Persona,
-    Rol,
-    Usuario,
-    Conductor,
-    Vehiculo,
-    Pasajero,
-    Region,
-    SolicitudViaje,
-    Log
-};
+export default { sequelize, Persona, Rol, Usuario, Conductor, Vehiculo, Pasajero, Region, SolicitudViaje, Log };

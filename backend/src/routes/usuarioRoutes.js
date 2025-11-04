@@ -1,9 +1,20 @@
-const router = require('express').Router();
-const { listar, actualizar, eliminar } = require('../controllers/usuarioController');
-const { verifyToken, isAdmin } = require('../middlewares/authJwt');
+import express from 'express';
+import {
+    createUsuario,
+    getUsuarios,
+    getUsuarioById,
+    updateUsuario,
+    deleteUsuario,
+} from '../controllers/usuarioController.js';
+import { verifyToken, checkRole } from '../middlewares/authJwt.js';
 
-router.get('/', verifyToken, isAdmin, listar);
-router.put('/:id', verifyToken, isAdmin, actualizar);
-router.delete('/:id', verifyToken, isAdmin, eliminar);
+const router = express.Router();
 
-module.exports = router;
+router.post('/', verifyToken, checkRole(['admin']), createUsuario);
+router.put('/:id', verifyToken, checkRole(['admin']), updateUsuario);
+router.delete('/:id', verifyToken, checkRole(['admin']), deleteUsuario);
+
+router.get('/', verifyToken, getUsuarios);
+router.get('/:id', verifyToken, getUsuarioById);
+
+export default router;

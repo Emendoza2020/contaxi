@@ -1,8 +1,9 @@
-const router = require('express').Router();
-const { registrarConductor, obtenerPerfil } = require('../controllers/conductorController');
+import express from 'express';
+import { registrarConductor } from '../controllers/conductorController.js';
+
+const router = express.Router();
 
 router.post('/register-conductor', registrarConductor);
-router.get('/perfil-conductor', obtenerPerfil);
 
 
-module.exports = router;
+export default router;
