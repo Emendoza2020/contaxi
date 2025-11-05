@@ -23,7 +23,7 @@ Conductor.hasMany(Vehiculo, { foreignKey: 'id_conductor' });
 Vehiculo.belongsTo(Conductor, { foreignKey: 'id_conductor' });
 
 Persona.hasOne(Pasajero, { foreignKey: 'id_persona' });
-Pasajero.belongsTo(Persona, { foreignKey: 'id_persona' });
+Pasajero.belongsTo(Persona, { foreignKey: 'id_persona', as: "persona" });
 
 Region.hasMany(SolicitudViaje, { foreignKey: 'id_region' });
 SolicitudViaje.belongsTo(Region, { foreignKey: 'id_region' });

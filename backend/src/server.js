@@ -4,8 +4,15 @@ import authRoutes from './routes/authRoutes.js';
 import personaRoutes from './routes/personaRoutes.js';
 import rolRoutes from './routes/rolRoutes.js';
 import usuarioRoutes from './routes/usuarioRoutes.js';
+import pasajeroRoutes from './routes/pasajeroRoutes.js';
+import conductorRoutes from './routes/conductorRoutes.js';
+
+import cors from 'cors';
+
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT;
@@ -24,6 +31,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/personas', personaRoutes);
 app.use('/api/roles', rolRoutes);
 app.use('/api/usuarios', usuarioRoutes);
+
+app.use('/api/pasajeros', pasajeroRoutes);
+app.use('/api/conductor', conductorRoutes);
 
 app.get('/', (req, res) => res.send('🚀 Servidor funcionando'));
 
