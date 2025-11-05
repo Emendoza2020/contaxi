@@ -5,31 +5,31 @@
             Registro de Pasajero
         </h2>
 
-        <form class="space-y-4">
+        <form (ngSubmit)="registrarPasajero()" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-blue-700 font-semibold mb-1">Nombres:</label>
-                    <input formControlName="nombres" placeholder="" required class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    <input [(ngModel)]="pasajer.nombres" name="nombres" name="nombre" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" required>
                 </div>
                 <div>
                     <label class="block text-blue-700 font-semibold mb-1">Apellidos:</label>
-                    <input formControlName="apellidos" placeholder="" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    <input [(ngModel)]="pasajer.apellidos" name="apellido" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-blue-700 font-semibold mb-1">Nro C.I:</label>
-                    <input formControlName="ci" placeholder="" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    <input [(ngModel)]="pasajer.ci" name="cii" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                 </div>
                 <div>
                     <label class="block text-blue-700 font-semibold mb-1">Nro Telefono</label>
-                    <input formControlName="telefono" placeholder="" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    <input [(ngModel)]="pasajer.telefono" name="fono" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div>
                     <label class="block text-blue-700 font-semibold mb-1">Dirección</label>
-                    <input formControlName="direccion" placeholder="" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                    <input [(ngModel)]="pasajer.direccion" name="dir" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
 
                 </div>
             </div>
@@ -37,21 +37,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-blue-700 font-semibold mb-1">Email</label>
-                        <input formControlName="email" placeholder="" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                        <input [(ngModel)]="pasajer.email" name="em" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                     </div>
                     <div>
                         <label class="block text-blue-700 font-semibold mb-1">Contraseña</label>
-                        <input formControlName="password" type="password" placeholder="" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+                        <input [(ngModel)]="pasajer.password" name="pass" type="password" class="w-full border border-blue-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                     </div>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button type="submit" class="w-full bg-yellow-400 text-blue-900 font-bold py-3 rounded-lg mt-6 hover:bg-yellow-300 transition duration-300 disabled:opacity-60">
-        Enviar Registro
-      </button>
-                <button class="w-full bg-red-500 text-black-900 font-bold py-3 rounded-lg mt-6 hover:bg-danger-300 transition duration-300 disabled:opacity-60" routerLink="/">
-        Cancelar
-      </button>
+                <div>
+                    <button type="submit" class="w-full bg-green-600 text-white font-semibold py-3 rounded-lg hover:bg-green-700 transition">Crear cuenta</button>
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-red-600 text-white font-semibold py-3 rounded-lg hover:bg-red-700 transition" routerLink="/">Cancelar</button>
+                </div>
             </div>
 
             <!-- <button class="bg-Blue text-blue-600 py-2 rounded mt-2">Registrarme</button> -->

@@ -34,8 +34,4 @@ export class Auth {
     return localStorage.getItem('token');
   }
 
-  registerPasajero(data: any){
-
-  }
-
 }
