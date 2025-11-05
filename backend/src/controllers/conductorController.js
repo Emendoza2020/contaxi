@@ -90,3 +90,29 @@ export const perfilConductor = async(id_conductor, res) => {
         res.status(500).json({ message: 'Error al obtener perfil', error });
     }
 };
+
+export const validateCI = async(req, res) => {
+    const { ci } = req.body;
+    if (!ci) return res.status(400).json({ message: 'CI es requerido' });
+
+    try {
+        const exists = await Persona.findOne({ where: { ci } });
+        res.json({ exists: !!exists });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al validar CI' });
+    }
+};
+
+export const validateEmail = async(req, res) => {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: 'Email es requerido' });
+
+    try {
+        const exists = await Usuario.findOne({ where: { email } });
+        res.json({ exists: !!exists });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al validar email' });
+    }
+};
