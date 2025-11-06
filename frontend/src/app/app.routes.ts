@@ -22,6 +22,7 @@ export const routes: Routes = [
   {
     path:'dashboard', component: Dashboard, canActivate: [authGuard],
     children: [
+
       { path: 'conductor', component: Conductor },
       { path: 'pasajero', component: Pasajero },
       { path: 'solicitudes', component: Solicitudes },

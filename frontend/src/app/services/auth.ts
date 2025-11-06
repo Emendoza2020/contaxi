@@ -23,7 +23,12 @@ export class Auth {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('rol');
     this.router.navigate(['/']);
+  }
+
+  getRol() {
+    return localStorage.getItem('rol');
   }
 
   isLoggedIn() {

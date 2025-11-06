@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { debounceTime, switchMap } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 import { Conductor } from '../../../services/conductor';
 
 @Component({
   selector: 'app-reg-conductor',
   standalone: true,
-  imports: [FormsModule, CommonModule, ReactiveFormsModule ],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './reg-conductor.html',
   styleUrl: './reg-conductor.css'
 })
@@ -17,6 +18,7 @@ export class RegConductor {
   conductorForm!: FormGroup;
   ciExists = false;
   emailExists = false;
+  //router: any;
 
   constructor(private fb: FormBuilder, private cs: Conductor, private http: HttpClient) {}
 
@@ -73,13 +75,17 @@ export class RegConductor {
 
     this.http.post('http://localhost:4000/api/conductor/registro', this.conductorForm.value)
       .subscribe({
-        next: () => alert('Conductor registrado exitosamente'),
+        next: () => {
+          alert('Conductor registrado exitosamente');
+          //this.router.navigate(['/login']);
+        },
         error: () => alert('Error al registrar conductor')
       });
   }
 
   getError(controlName: string) {
-  const control = this.conductorForm.get(controlName);
-  return control && control.touched ? control.errors || {} : {};
-}
+    const control = this.conductorForm.get(controlName);
+    return control && control.touched ? control.errors || {} : {};
+  }
+
 }

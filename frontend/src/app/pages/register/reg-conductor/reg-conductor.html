@@ -4,30 +4,30 @@
             Registro de Conductor
         </h2>
 
+        <form [formGroup]="conductorForm" (ngSubmit)="submitForm()">
 
-        <div class="container mx-auto p-6 max-w-2xl bg-white shadow-lg rounded-xl">
-            <h2 class="text-2xl font-bold mb-4 text-blue-700">Registro de Conductor</h2>
-
-            <form [formGroup]="conductorForm" (ngSubmit)="submitForm()">
-
-                <!-- DATOS PERSONALES -->
-                <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos personales</h3>
-
+            <!-- DATOS PERSONALES -->
+            <div class="border-t border-blue-200 pt-4 mt-4">
+                <!-- <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos personales</h3> -->
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Nombres</label>
-                    <input formControlName="nombres" placeholder="Nombres" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Nombres</label>
+                    <input formControlName="nombres" class="input" />
                     <p *ngIf="getError('nombres')['required']" class="error-msg">Los nombres son obligatorios</p>
                 </div>
 
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Apellidos</label>
-                    <input formControlName="apellidos" placeholder="Apellidos" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Apellidos</label>
+                    <input formControlName="apellidos" class="input" />
                     <p *ngIf="getError('apellidos')['required']" class="error-msg">Los apellidos son obligatorios</p>
                 </div>
 
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Cédula de Identidad (CI)</label>
-                    <input formControlName="ci" placeholder="CI" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Cédula de Identidad (CI)</label>
+                    <input formControlName="ci" class="input" />
                     <p *ngIf="getError('ci')['required']" class="error-msg">El CI es obligatorio</p>
                     <p *ngIf="getError('ci')['minlength']" class="error-msg">El CI es demasiado corto</p>
                     <p *ngIf="getError('ci')['maxlength']" class="error-msg">El CI es demasiado largo</p>
@@ -35,92 +35,128 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Teléfono</label>
-                    <input formControlName="telefono" placeholder="Teléfono" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Teléfono</label>
+                    <input formControlName="telefono" class="input" />
                     <p *ngIf="getError('telefono')['required']" class="error-msg">El teléfono es obligatorio</p>
                     <p *ngIf="getError('telefono')['pattern']" class="error-msg">Solo se permiten números</p>
                 </div>
+            </div>
 
+            <div class="mb-3">
+                <label class="block text-blue-700 text-sm font-semibold mb-1">Dirección</label>
+                <input formControlName="direccion" class="input" />
+                <p *ngIf="getError('direccion')['required']" class="error-msg">La dirección es obligatoria</p>
+            </div>
+
+            <!-- DATOS DE CUENTA -->
+            <div class="border-t border-blue-200 pt-4 mt-4">
+                <!-- <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos de cuenta</h3> -->
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Dirección</label>
-                    <input formControlName="direccion" placeholder="Dirección" class="input" />
-                    <p *ngIf="getError('direccion')['required']" class="error-msg">La dirección es obligatoria</p>
-                </div>
-
-                <!-- DATOS DE CUENTA -->
-                <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos de cuenta</h3>
-
-                <div class="mb-3">
-                    <label class="block text-sm font-medium">Correo electrónico</label>
-                    <input formControlName="email" placeholder="Email" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Correo electrónico</label>
+                    <input formControlName="email" class="input" />
                     <p *ngIf="getError('email')['required']" class="error-msg">El email es obligatorio</p>
                     <p *ngIf="getError('email')['email']" class="error-msg">Email inválido</p>
                     <p *ngIf="emailExists" class="error-msg">El email ya está registrado</p>
                 </div>
 
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Contraseña</label>
-                    <input type="password" formControlName="password" placeholder="Contraseña" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Contraseña</label>
+                    <input type="password" formControlName="password" class="input" />
                     <p *ngIf="getError('password')['required']" class="error-msg">La contraseña es obligatoria</p>
                     <p *ngIf="getError('password')['minlength']" class="error-msg">Debe tener al menos 6 caracteres</p>
                 </div>
+            </div>
 
-                <!-- DATOS DE CONDUCTOR -->
-                <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos del conductor</h3>
+            <!-- DATOS DE CONDUCTOR -->
+            <div class="border-t border-blue-200 pt-4 mt-4">
+                <!-- <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos del conductor</h3> -->
+            </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Número de licencia</label>
-                    <input formControlName="licencia" placeholder="Licencia" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Número de licencia</label>
+                    <input formControlName="licencia" class="input" />
                     <p *ngIf="getError('licencia')['required']" class="error-msg">La licencia es obligatoria</p>
                 </div>
 
                 <div class="mb-3">
-                    <label class="block text-sm font-medium">Categoría de licencia</label>
-                    <input formControlName="categoria_licencia" placeholder="Categoría (A, B, C...)" class="input" />
+                    <label class="block text-blue-700 text-sm font-semibold mb-1">Categoría de licencia</label>
+                    <input formControlName="categoria_licencia" class="input" />
                     <p *ngIf="getError('categoria_licencia')['required']" class="error-msg">La categoría es obligatoria</p>
                 </div>
+            </div>
 
-                <!-- DATOS DEL VEHÍCULO -->
-                <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos del vehículo</h3>
+            <!-- DATOS DEL VEHÍCULO -->
+            <div class="border-t border-blue-200 pt-4 mt-4">
+                <!-- <h3 class="text-lg font-semibold mt-4 mb-2 text-gray-700">Datos del vehículo</h3> -->
+            </div>
+            <div formArrayName="vehiculos">
+                <div *ngFor="let vehiculo of vehiculos.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg mb-3 bg-gray-50">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-blue-700 text-sm font-semibold mb-1">Placa</label>
+                            <input formControlName="placa" class="input" />
+                            <p *ngIf="getError('placa')['required']" class="error-msg">La placa es obligatoria</p>
+                        </div>
+                        <div>
+                            <label class="block text-blue-700 text-sm font-semibold mb-1">Marca</label>
+                            <input formControlName="marca" class="input" />
 
-                <div formArrayName="vehiculos">
-                    <div *ngFor="let vehiculo of vehiculos.controls; let i = index" [formGroupName]="i" class="border p-4 rounded-lg mb-3 bg-gray-50">
-                        <label class="block text-sm font-medium">Placa</label>
-                        <input formControlName="placa" placeholder="Placa" class="input" />
-                        <p *ngIf="getError('placa')['required']" class="error-msg">La placa es obligatoria</p>
+                        </div>
+                        <div>
+                            <label class="block text-blue-700 text-sm font-semibold mb-1">Modelo</label>
+                            <!-- <input formControlName="modelo" class="input" /> -->
+                            <select formControlName="modelo" class="input">
+                              <option value="">Seleccione...</option>
+                              <option value="Taxi">Taxi</option>
+                              <option value="Moto">Moto</option>
+                              <option value="Mototaxi">Mototaxi</option>
+                            </select>
+                        </div>
+                    </div>
 
-                        <label class="block text-sm font-medium">Marca</label>
-                        <input formControlName="marca" placeholder="Marca" class="input" />
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-blue-700 text-sm font-semibold mb-1">Año</label>
+                            <input type="number" formControlName="anio" class="input" />
+                        </div>
+                        <div>
+                            <label class="block text-blue-700 text-sm font-semibold mb-1">Color</label>
+                            <input formControlName="color" class="input" />
 
-                        <label class="block text-sm font-medium">Modelo</label>
-                        <input formControlName="modelo" placeholder="Modelo" class="input" />
-
-                        <label class="block text-sm font-medium">Año</label>
-                        <input type="number" formControlName="anio" placeholder="Año" class="input" />
-
-                        <label class="block text-sm font-medium">Color</label>
-                        <input formControlName="color" placeholder="Color" class="input" />
-
-                        <label class="block text-sm font-medium">Capacidad</label>
-                        <input type="number" formControlName="capacidad" placeholder="Capacidad" class="input" />
+                        </div>
+                        <div>
+                            <label class="block text-blue-700 text-sm font-semibold mb-1">Capacidad</label>
+                            <input type="number" formControlName="capacidad" class="input" />
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="flex justify-between mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
                     <button type="button" (click)="addVehiculo()" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
         + Agregar Vehículo
       </button>
-
-                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">
-        Registrar Conductor
-      </button>
                 </div>
 
-            </form>
-        </div>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+        Registrar
+      </button>
 
-        <!-- 🔹 Estilos base -->
-        <style>
+                <div>
+                    <button type="submit" class="w-full bg-red-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-red-700 transition" routerLink="/">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+<!-- 🔹 Estilos base -->
+<!-- <style>
             .input </div></section><!-- <style>.error-msg {
                 color: #e53e3e;
                 font-size: 0.875rem;

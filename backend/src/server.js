@@ -1,5 +1,6 @@
 import express from 'express';
 import sequelize from './config/database.js';
+
 import authRoutes from './routes/authRoutes.js';
 import personaRoutes from './routes/personaRoutes.js';
 import rolRoutes from './routes/rolRoutes.js';

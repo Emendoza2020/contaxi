@@ -17,4 +17,10 @@ export class Dashboard {
     this.auth.logout();
   }
 
+  rolUsuario = '';
+
+ngOnInit() {
+  this.rolUsuario = localStorage.getItem('rol') || 'admin';
+}
+
 }

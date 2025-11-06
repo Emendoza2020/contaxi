@@ -10,15 +10,19 @@ import SolicitudViaje from './solicitudViajeModel.js';
 import Log from './logModel.js';
 
 // Relaciones
+// Usuario <-> Rol
 Rol.hasMany(Usuario, { foreignKey: 'id_rol' });
-Usuario.belongsTo(Rol, { foreignKey: 'id_rol' });
+Usuario.belongsTo(Rol, { foreignKey: 'id_rol', as: 'rol' });
 
+// Relación Persona <-> Usuario
 Persona.hasOne(Usuario, { foreignKey: 'id_persona' });
 Usuario.belongsTo(Persona, { foreignKey: 'id_persona' });
 
+// Relación Persona <-> Conductor
 Persona.hasOne(Conductor, { foreignKey: 'id_persona' });
 Conductor.belongsTo(Persona, { foreignKey: 'id_persona' });
 
+// Conductor <-> Vehiculo
 Conductor.hasMany(Vehiculo, { foreignKey: 'id_conductor' });
 Vehiculo.belongsTo(Conductor, { foreignKey: 'id_conductor' });
 
@@ -37,4 +41,4 @@ SolicitudViaje.belongsTo(Conductor, { foreignKey: 'id_conductor' });
 Usuario.hasMany(Log, { foreignKey: 'id_usuario' });
 Log.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 
-export default { sequelize, Persona, Rol, Usuario, Conductor, Vehiculo, Pasajero, Region, SolicitudViaje, Log };
+export { sequelize, Persona, Rol, Usuario, Conductor, Vehiculo, Pasajero, Region, SolicitudViaje, Log };
