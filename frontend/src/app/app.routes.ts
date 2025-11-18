@@ -11,6 +11,7 @@ import { RegConductor } from './pages/register/reg-conductor/reg-conductor';
 import { RegPasajero } from './pages/register/reg-pasajero/reg-pasajero';
 import { Pasajero } from './pages/indriver/pasajero/pasajero';
 import { authGuard } from './guards/auth-guard';
+import { Perfil } from './pages/dashboard/perfil/perfil';
 
 export const routes: Routes = [
   { path: '', component: Inicio },
@@ -28,6 +29,7 @@ export const routes: Routes = [
       { path: 'solicitudes', component: Solicitudes },
       { path: 'roles', component: Roles },
       { path: 'usuarios', component: Users },
+      { path: 'perfil', component: Perfil},
       { path: '', redirectTo: 'usuarios', pathMatch: 'full' }
     ]
   },

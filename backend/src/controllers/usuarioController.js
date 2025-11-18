@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import Usuario from '../models/usuarioModel.js';
 import Persona from '../models/personaModel.js';
 import Rol from '../models/rolModel.js';
+import '../models/index.js';
 
 export const createUsuario = async(req, res) => {
     const { email, password, id_persona, id_rol } = req.body;
@@ -62,5 +63,24 @@ export const deleteUsuario = async(req, res) => {
         res.json({ message: 'Usuario eliminado' });
     } catch (err) {
         res.status(500).json({ message: 'Error eliminando usuario', error: err.message });
+    }
+};
+
+export const perfilUsuario = async(req, res) => {
+    try {
+        const { id } = req.params;
+        const usuario = await Usuario.findOne({
+            where: { id_usuario: id },
+            include: [
+                { model: Persona },
+                { model: Rol }
+            ]
+        });
+        if (!usuario)
+            return res.status(404).json({ message: "Usuario no encontrado" });
+        res.json(usuario);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error al obtener perfil", error });
     }
 };

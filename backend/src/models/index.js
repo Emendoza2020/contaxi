@@ -11,12 +11,12 @@ import Log from './logModel.js';
 
 // Relaciones
 // Usuario <-> Rol
-Rol.hasMany(Usuario, { foreignKey: 'id_rol' });
-Usuario.belongsTo(Rol, { foreignKey: 'id_rol', as: 'rol' });
+Rol.hasMany(Usuario, { foreignKey: "id_rol" });
+Usuario.belongsTo(Rol, { foreignKey: "id_rol" });
 
 // Relación Persona <-> Usuario
-Persona.hasOne(Usuario, { foreignKey: 'id_persona' });
-Usuario.belongsTo(Persona, { foreignKey: 'id_persona' });
+Persona.hasOne(Usuario, { foreignKey: "id_persona" });
+Usuario.belongsTo(Persona, { foreignKey: "id_persona" });
 
 // Relación Persona <-> Conductor
 Persona.hasOne(Conductor, { foreignKey: 'id_persona' });

@@ -20,4 +20,9 @@ export class User {
   updateUserRole(id: number, id_rol: number) {
     return this.http.put(`${this.api}/${id}`, { id_rol }, this.headers);
   }
+
+  perfilUsuario(id: number){
+    return this.http.get(`${this.api}/${id}`,  this.headers);
+
+  }
 }

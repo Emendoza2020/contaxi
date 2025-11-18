@@ -1,0 +1,47 @@
+<div class="profile-card">
+    <div class="header">
+        <!-- <div class="avatar">{{ initials }}</div> -->
+        <div class="user-info">
+            <div class="name">{{ (user?.persona?.nombres || '') + ' ' + (user?.persona?.apellidos || '') }}</div>
+            <div class="email">{{ user?.email }}</div>
+            <button class="btn-outline" (click)="onEdit()">Perfil de Usuario</button>
+        </div>
+    </div>
+
+
+    <hr />
+
+
+    <div class="body">
+        <div class="stat">
+            <div class="icon">🆔</div>
+            <div class="text">
+                <div class="label">NIT/CUR/CI</div>
+                <div class="value">{{ user?.persona?.ci || '-' }}</div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="icon">🏷️</div>
+            <div class="text">
+                <div class="label">Razón Social</div>
+                <div class="value">{{ (user?.persona?.nombres || '') + ' ' + (user?.persona?.apellidos || '') }}</div>
+            </div>
+        </div>
+
+
+        <div class="stat">
+            <div class="icon">🏢</div>
+            <div class="text">
+                <div class="label">Dependencia</div>
+                <div class="value">{{ user?.rol?.nombre || '-' }}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <button class="btn-logout" (click)="onLogout()">Cerrar Sesión</button>
+    </div>
+</div>

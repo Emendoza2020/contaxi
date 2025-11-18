@@ -5,6 +5,7 @@ import {
     getUsuarioById,
     updateUsuario,
     deleteUsuario,
+    perfilUsuario,
 } from '../controllers/usuarioController.js';
 import { verifyToken, checkRole } from '../middlewares/authJwt.js';
 
@@ -16,5 +17,7 @@ router.delete('/:id', verifyToken, checkRole(['admin']), deleteUsuario);
 
 router.get('/', verifyToken, getUsuarios);
 router.get('/:id', verifyToken, getUsuarioById);
+
+router.get('/:id', verifyToken, perfilUsuario);
 
 export default router;
