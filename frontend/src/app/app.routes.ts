@@ -6,11 +6,15 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { Roles } from './pages/dashboard/roles/roles/roles';
 import { Users } from './pages/dashboard/users/users/users';
 import { Inicio } from './pages/home/inicio/inicio';
-import { Conductor } from './pages/indriver/conductor/conductor';
 import { RegConductor } from './pages/register/reg-conductor/reg-conductor';
 import { RegPasajero } from './pages/register/reg-pasajero/reg-pasajero';
-import { Pasajero } from './pages/indriver/pasajero/pasajero';
+
+import { Admin } from './pages/dashboard/admin/admin';
+import { Conductor } from './pages/dashboard/conductor/conductor';
+import { Pasajero } from './pages/dashboard/pasajero/pasajero';
+
 import { authGuard } from './guards/auth-guard';
+import { Role } from './guards/role';
 import { Perfil } from './pages/dashboard/perfil/perfil';
 
 export const routes: Routes = [
@@ -20,18 +24,20 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'register-conductor', component: RegConductor},
   { path: 'register-pasajero', component: RegPasajero},
+
+  { path: 'solicitudes', component: Solicitudes },
+  { path: 'roles', component: Roles },
+  { path: 'perfil', component: Perfil },
+  { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
   {
     path:'dashboard', component: Dashboard, canActivate: [authGuard],
     children: [
-
-      { path: 'conductor', component: Conductor },
-      { path: 'pasajero', component: Pasajero },
-      { path: 'solicitudes', component: Solicitudes },
-      { path: 'roles', component: Roles },
-      { path: 'usuarios', component: Users },
-      { path: 'perfil', component: Perfil},
-      { path: '', redirectTo: 'usuarios', pathMatch: 'full' }
+      { path: 'admin', component: Admin, canActivate: [Role], data: { rol: 'admin' }},
+      { path: 'usuarios', component: Users, canActivate: [Role], data: { rol: 'admin' }},
+      { path: 'conductor', component: Conductor, canActivate: [Role], data: { rol: 'conductor' }},
+      { path: 'dashboard/pasajero', component: Pasajero, canActivate: [Role], data: { rol: 'pasajero' }}
     ]
   },
+
   { path: '**', redirectTo: '' }
 ];

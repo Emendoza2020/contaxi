@@ -1,0 +1,32 @@
+<header class="w-full bg-[#12398a] shadow flex justify-between items-center px-6 py-3">
+
+    <div class="flex items-center gap-3">
+        <i class="fa-solid fa-bars text-2xl text-blue-700 cursor-pointer"></i>
+        <h1 class="text-xl font-semibold text-white">
+            {{ rol | titlecase }} Panel
+        </h1>
+    </div>
+
+    <div class="relative group">
+        <div class="flex items-center gap-3 cursor-pointer">
+            <img src="assets/img/user.jpg{{usuario.nombre}}" class="w-10 h-10 rounded-full" />
+            <span class="font-semibold">{{ usuario.nombre }}</span>
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-semibold text-white">
+                    {{ rol | titlecase }}
+                </h1>
+                <!-- <span class="font-semibold text-gray-700">Administrador</span> -->
+                <img src="https://i.pravatar.cc/40" class="w-10 h-10 rounded-full border" />
+            </div>
+        </div>
+
+        <!-- Dropdown -->
+        <div class="absolute right-0 mt-2 w-40 bg-white shadow-md rounded hidden group-hover:block">
+            <p class="text-gray-600 px-3 py-2 border-b">{{ usuario.rol | titlecase }}</p>
+            <a routerLink="/perfil" class="block px-3 py-2 hover:bg-gray-100">Perfil</a>
+            <a routerLink="/configuracion" class="block px-3 py-2 hover:bg-gray-100">Configuración</a>
+            <button class="w-full text-left px-3 py-2 hover:bg-gray-100 text-red-600">Cerrar sesión</button>
+        </div>
+    </div>
+
+</header>

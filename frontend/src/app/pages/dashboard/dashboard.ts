@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { Auth } from '../../services/auth';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { Header } from './header/header';
+import { Sidebar } from './sidebar/sidebar';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, Header, Sidebar],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -19,8 +21,24 @@ export class Dashboard {
 
   rolUsuario = '';
 
-ngOnInit() {
-  this.rolUsuario = localStorage.getItem('rol') || 'admin';
-}
+  ngOnInit() {
+    this.rolUsuario = localStorage.getItem('rol') || 'admin' || 'conductor' ;
+  }
+
+  collapsed = signal(false);
+  dropdown = signal(false);
+
+  toggle() { this.collapsed.update(v => !v); }
+  toggleDropdown() { this.dropdown.update(v => !v); }
+  closeDropdown() { this.dropdown.set(false); }
+  dropdownOpen() { return this.dropdown(); }
+
+  sidebarOpen = true;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
+
+
 
 }

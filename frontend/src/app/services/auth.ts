@@ -13,8 +13,23 @@ export class Auth {
 
   login(data: any){
     return this.http.post(`${this.api}/login`, data).pipe(
-      tap((res: any) => localStorage.setItem('token', res.token))
+      tap((res: any) => {
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('rol', res.rol);
+      })
     );
+  }
+
+  get Token() {
+    return localStorage.getItem('token');
+  }
+
+  get Rol() {
+    return localStorage.getItem('rol');
+  }
+
+  get Nombre() {
+    return localStorage.getItem('nombre');
   }
 
   register(data: any) {
@@ -25,18 +40,15 @@ export class Auth {
     localStorage.removeItem('token');
     localStorage.removeItem('rol');
     this.router.navigate(['/']);
+    localStorage.clear();
   }
 
-  getRol() {
-    return localStorage.getItem('rol');
-  }
+
 
   isLoggedIn() {
     return !!localStorage.getItem('token');
   }
 
-  getToken() {
-    return localStorage.getItem('token');
-  }
+
 
 }

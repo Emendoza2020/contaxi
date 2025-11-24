@@ -1,0 +1,58 @@
+<div class="space-y-8">
+
+    <h1 class="text-3xl font-bold text-gray-700">Panel del Administrador</h1>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div *ngFor="let s of stats" class="p-6 rounded-lg shadow bg-white flex items-center gap-4">
+
+            <div class="{{s.color}} text-white rounded-full p-4">
+                <i class="fa-solid {{s.icon}} text-xl"></i>
+            </div>
+
+            <div>
+                <p class="text-gray-500">{{s.title}}</p>
+                <p class="text-2xl font-bold">{{s.value}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- GRÁFICA FAKE (placeholder) -->
+    <div class="p-6 bg-white shadow rounded-lg h-80 flex items-center justify-center">
+        <span class="text-gray-400">
+      Aquí va una gráfica (Chart.js, ApexCharts o ECharts)
+    </span>
+    </div>
+
+    <!-- TABLA -->
+    <!-- <div class="bg-white shadow rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Últimos usuarios registrados</h2>
+
+        <table class="w-full text-left">
+            <thead class="text-gray-500 border-b">
+                <tr>
+                    <th class="py-2">Nombre</th>
+                    <th class="py-2">Correo</th>
+                    <th class="py-2">Rol</th>
+                    <th class="py-2">Estado</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="border-b">
+                    <td class="py-2">Juan Pérez</td>
+                    <td class="py-2">juan@mail.com</td>
+                    <td class="py-2">Conductor</td>
+                    <td class="py-2"><span class="text-green-600 font-semibold">Activo</span></td>
+                </tr>
+                <tr class="border-b">
+                    <td class="py-2">María López</td>
+                    <td class="py-2">maria@mail.com</td>
+                    <td class="py-2">Pasajero</td>
+                    <td class="py-2"><span class="text-yellow-600 font-semibold">Pendiente</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+
+</div>

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Auth } from '../../../services/auth';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,23 +9,51 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     RouterLink
   ],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
-export class Login {
-  email = '';
-  password = '';
+export class Login implements OnInit {
 
-  constructor(private auth:Auth, private router: Router) {}
+  form!: FormGroup;
 
-  login() {
-    this.auth.login({ email: this.email, password: this.password }).subscribe({
-      next: () => this.router.navigate(['/dashboard']),
-      error: () => alert('Credenciales incorrectas')
+  constructor(private auth:Auth, private fb: FormBuilder, private router: Router) {}
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
+
+  showPassword = false;
+
+  login() {
+    if (this.form.invalid) return;
+
+    this.auth.login(this.form.value).subscribe({
+      next: (resp: any) => {
+        const rol = resp.rol;
+        if (rol === 'admin') this.router.navigate(['/dashboard/admin']);
+        if (rol === 'conductor') this.router.navigate(['/dashboard/conductor']);
+        if (rol === 'pasajero') this.router.navigate(['/dashboard/pasajero']);
+      },
+
+      error: () => { alert('Credenciales incorrectas')}
+
+    });
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  getError(controlName: string) {
+    const control = this.form.get(controlName);
+    return control && control.touched ? control.errors || {} : {};
+  }
+
  }
 

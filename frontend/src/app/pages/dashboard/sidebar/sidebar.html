@@ -1,0 +1,19 @@
+<aside class="w-64 bg-blue-900 text-white min-h-screen p-4 space-y-3">
+
+    <div class="text-5xl font-bold tracking-wide text-center">
+        Con<span class="text-yellow-400">Taxi</span>
+    </div>
+    <div class="text-5xl font-bold tracking-wide">
+        <h1 class="text-xl font-semibold text-white text-center">
+            {{ rol | titlecase }}
+        </h1>
+    </div>
+    <hr>
+
+    <ng-container *ngFor="let item of menu">
+        <a [routerLink]="item.route" class="flex items-center gap-3 px-3 py-2 rounded hover:bg-blue-700 transition">
+            <i class="{{item.icon}}"></i> {{item.title}}
+        </a>
+    </ng-container>
+
+</aside>

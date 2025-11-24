@@ -30,16 +30,6 @@ export const getUsuarios = async(req, res) => {
     }
 };
 
-export const getUsuarioById = async(req, res) => {
-    try {
-        const usuario = await Usuario.findByPk(req.params.id, { include: [Persona, Rol] });
-        if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
-        res.json(usuario);
-    } catch (err) {
-        res.status(500).json({ message: 'Error obteniendo usuario', error: err.message });
-    }
-};
-
 export const updateUsuario = async(req, res) => {
     try {
         const usuario = await Usuario.findByPk(req.params.id);
@@ -63,6 +53,16 @@ export const deleteUsuario = async(req, res) => {
         res.json({ message: 'Usuario eliminado' });
     } catch (err) {
         res.status(500).json({ message: 'Error eliminando usuario', error: err.message });
+    }
+};
+
+export const getUsuarioById = async(req, res) => {
+    try {
+        const usuario = await Usuario.findByPk(req.params.id, { include: [Persona, Rol] });
+        if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
+        res.json(usuario);
+    } catch (err) {
+        res.status(500).json({ message: 'Error obteniendo usuario', error: err.message });
     }
 };
 
