@@ -11,9 +11,35 @@
     <hr>
 
     <ng-container *ngFor="let item of menu">
-        <a [routerLink]="item.route" class="flex items-center gap-3 px-3 py-2 rounded hover:bg-blue-700 transition">
-            <i class="{{item.icon}}"></i> {{item.title}}
-        </a>
+        <nav class="mt-4">
+
+            <button (click)="item.open = !item.open" class="w-full flex items-center px-4 py-3 hover:bg-blue-800 transition">
+              <i [class]="item.icon + ' mr-3'"></i>
+              <span>{{ item.title }}</span>
+              <i *ngIf="item.children" class="fa-solid fa-chevron-down ml-auto transition-transform" [class.rotate-180]="item.open"></i>
+
+            </button>
+
+            <!-- Submenús -->
+            <ul *ngIf="item.children && item.open" class="ml-6 mt-2 space-y-2">
+                <li class="flex items-center px-4 py-3 hover:bg-blue-800 transition" *ngFor="let child of item.children">
+                    <a [routerLink]="child.route" class="flex items-center">
+                        <i [class]="child.icon + ' mr-2'"></i> {{ child.title }}
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+
     </ng-container>
 
 </aside>
+
+
+<!-- BOTÓN MOBILE -->
+<button id="toggleSidebar" class="md:hidden fixed top-4 left-4 bg-gray-900 text-white p-3 rounded-lg shadow-lg">
+<i class="fa-solid fa-bars text-xl"></i>
+</button>
+
+<!-- OVERLAY DARK PARA MODO MOBILE -->
+<div id="overlaySidebar" class="fixed inset-0 bg-black bg-opacity-50 hidden md:hidden"></div>

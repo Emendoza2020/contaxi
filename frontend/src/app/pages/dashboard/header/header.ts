@@ -12,16 +12,27 @@ import { RouterLink } from '@angular/router';
 })
 export class Header {
 
-  private auth = inject(Auth);
+   private auth = inject(Auth);
+   router: any;
 
-  constructor() {}
+   constructor() {}
 
-  rol = this.auth.Rol;
-  nombre = this.auth.Nombre;
+   rol = this.auth.Rol;
+   nombre = this.auth.Nombre;
 
-  usuario = {
+   toggleNotifications = false;
+   toggleProfile = false;
+   toggleMenuMobile = false;
+
+
+   usuario = {
     nombre: this.auth.Nombre,
     rol: this.auth.Rol
   };
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/auth/login']);
+  }
 
 }

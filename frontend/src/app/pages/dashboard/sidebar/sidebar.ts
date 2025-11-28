@@ -25,8 +25,13 @@ export class Sidebar {
   loadMenu() {
     if (this.rol === 'admin') {
       this.menu = [
-        { icon: 'fa-solid fa-chart-line', title: 'Dashboard', route: '/dashboard/admin' },
-        { icon: 'fa-solid fa-users', title: 'Usuarios', route: '/dashboard/usuarios' },
+        { title: 'Dashboards', icon: 'fa-solid fa-home', children:[
+          { icon: 'fa-solid fa-chart-line', title: 'Principal', route: '/dashboard/admin' },
+        ]},
+        { title: 'Usuarios', icon: 'fa-solid fa-users', children:[
+            { icon: 'fa-solid fa-users', title: 'Usuarios', route: '/dashboard/usuarios' },
+        ]
+        },
         { icon: 'fa-solid fa-car-side', title: 'Conductores', route: '/dashboard/conductores' },
         { icon: 'fa-solid fa-user', title: 'Pasajeros', route: '/dashboard/admin/pasajeros' },
         { icon: 'fa-solid fa-file', title: 'Reportes', route: '/dashboard/admin/reportes' }

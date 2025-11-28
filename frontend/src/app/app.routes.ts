@@ -27,15 +27,17 @@ export const routes: Routes = [
 
   { path: 'solicitudes', component: Solicitudes },
   { path: 'roles', component: Roles },
-  { path: 'perfil', component: Perfil },
+  //{ path: 'perfil', component: Perfil },
   { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
   {
     path:'dashboard', component: Dashboard, canActivate: [authGuard],
     children: [
       { path: 'admin', component: Admin, canActivate: [Role], data: { rol: 'admin' }},
       { path: 'usuarios', component: Users, canActivate: [Role], data: { rol: 'admin' }},
+      { path: 'perfil', component: Perfil, canActivate: [Role], data: { rol: 'admin'}},
+
       { path: 'conductor', component: Conductor, canActivate: [Role], data: { rol: 'conductor' }},
-      { path: 'dashboard/pasajero', component: Pasajero, canActivate: [Role], data: { rol: 'pasajero' }}
+      { path: 'pasajero', component: Pasajero, canActivate: [Role], data: { rol: 'pasajero' }}
     ]
   },
 
