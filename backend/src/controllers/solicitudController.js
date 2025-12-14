@@ -41,3 +41,19 @@ export const eliminarSolicitud = async(req, res) => {
     await SolicitudViaje.destroy({ where: { id_solicitud: id } });
     res.json({ message: 'Solicitud eliminada' });
 };
+
+export const obtenerSolicitudesParaConductor = async(req, res) => {
+    try {
+        // Filtrar las solicitudes de viaje que están disponibles para el conductor
+        const solicitudes = await SolicitudViaje.findAll({
+            where: {
+                id_conductor: null, // Solo las solicitudes que aún no han sido aceptadas por un conductor
+                estado: 'pendiente' // Solicitudes pendientes
+            }
+        });
+        return res.status(200).json(solicitudes);
+    } catch (error) {
+        console.error('Error al obtener solicitudes de viaje:', error);
+        return res.status(500).json({ message: 'Error al obtener las solicitudes' });
+    }
+};

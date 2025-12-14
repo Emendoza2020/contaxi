@@ -1,1 +1,31 @@
-<p>solicitudes works!</p>
+<div class="ride-container">
+    <form [formGroup]="form" (ngSubmit)="submitRequest()" class="controls">
+        <label>
+      Origen
+      <input formControlName="origin" placeholder="Dirección o lat,lng" />
+    </label>
+        <label>
+      Destino
+      <input formControlName="destination" placeholder="Dirección o lat,lng" />
+    </label>
+
+        <label>
+      Pasajeros
+      <input type="number" formControlName="passengers" min="1" />
+    </label>
+
+        <div>
+            <button type="button" (click)="findRoute()" [disabled]="isLoadingRoute">
+        {{ isLoadingRoute ? 'Trazando...' : 'Trazar ruta' }}
+      </button>
+        </div>
+
+        <div *ngIf="estimatedFare !== null">
+            <p>Tarifa recomendada: BOB {{ estimatedFare }}</p>
+        </div>
+
+        <button type="submit">Solicitar viaje</button>
+    </form>
+
+    <div id="map" style="height:600px; width:100%;"></div>
+</div>

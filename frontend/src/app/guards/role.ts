@@ -9,14 +9,20 @@ export class Role implements CanActivate {
   constructor(private auth: Auth, private router: Router) {}
 
   canActivate(route: any): boolean {
-    const rolNecesario = route.data['rol'];
-    const rolUsuario = this.auth.Rol;
+    const allowedRoles = route.data['rol'] as string[]; // ['admin', 'conductor', 'pasajero']
+    const userRole = this.auth.Rol;
 
-    if (rolUsuario === rolNecesario) {
-      return true;
-    }
+     if (!allowedRoles || allowedRoles.length === 0) {
+    return true;
+  }
 
-    this.router.navigate(['/auth/login']);
-    return false;
+  // si el rol del usuario está dentro de la lista, dejo pasar
+  if (allowedRoles.includes(userRole)) {
+    return true;
+  }
+
+  // si no, lo saco del juego
+  this.router.navigate(['/auth/login']); // o a otra página
+  return false;
   }
 }

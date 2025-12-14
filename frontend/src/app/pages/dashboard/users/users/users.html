@@ -1,35 +1,170 @@
-<h2 class="text-2xl font-bold mb-6">Gestión de Usuarios</h2>
+<div class="min-h-screen bg-slate-100 flex justify-center items-start py-10 px-4">
+    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
+        <div class="h-20 bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 relative">
+            <div class="absolute left-8 top-6">
+                <span class="text-2xl font-extrabold tracking-tight text-yellow-400">Gestión de Usuarios</span>
+            </div>
+            <button (click)="abrirModalCrear()" class="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-700 absolute top-4 right-4">
+  Crear Usuario
+</button>
+        </div>
 
-<table class="min-w-full bg-white rounded-lg shadow-md">
-    <thead class="bg-gray-200">
-        <tr>
-            <th class="py-2 px-4">ID</th>
-            <th class="py-2 px-4">Nombre</th>
-            <th class="py-2 px-4">Correo</th>
-            <th class="py-2 px-4">Rol</th>
-            <th class="py-2 px-4">Estado</th>
-            <th class="py-2 px-4">Acción</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let u of usuarios" class="border-t">
-            <td class="py-2 px-4">{{ u.id }}</td>
-            <td class="py-2 px-4">{{ u.nombres }} {{ u.apellidos }}</td>
-            <td class="py-2 px-4">{{ u.email }}</td>
-            <td class="py-2 px-4">
-                <select [(ngModel)]="u.id_rol" (change)="actualizarRol(u)" class="border p-2 rounded-lg">
-            <option *ngFor="let r of roles" [value]="r.id">{{ r.nombre }}</option>
-          </select>
-            </td>
-            <td class="py-2 px-4">{{ u.estado }}</td>
-            <td class="py-2 px-4">
-                <button class="flex-1 rounded-xl bg-yellow-500 px-4 py-2 font-semibold text-gray-900 hover:bg-yellow-400 transition-all">
+        <table class="min-w-full bg-white rounded-lg shadow-md">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="py-2 px-4">ID</th>
+                    <th class="py-2 px-4">Nombre</th>
+                    <th class="py-2 px-4">Correo</th>
+                    <th class="py-2 px-4">Rol</th>
+                    <th class="py-2 px-4">Estado</th>
+                    <th class="py-2 px-4">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of usuarios" class="border-t">
+                    <td class="py-2 px-4">{{ u.id_usuario }}</td>
+                    <td class="py-2 px-4">{{ u.Persona?.nombres }} {{ u.Persona?.apellidos }}</td>
+                    <td class="py-2 px-4">{{ u.email }}</td>
+                    <td class="py-2 px-4">{{ u.Rol?.nombre }}</td>
+                    <!--            <td class="py-2 px-4">{{ u.estado }}</td>  -->
+                    <td>
+                        <label class="inline-flex items-center cursor-pointer">
+    <input
+      type="checkbox"
+      class="sr-only peer"
+      [checked]="u.estado === 'activo'"
+      (change)="toggleEstado(u)"
+    >
+
+    <div
+      class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer
+             peer-checked:bg-green-500 transition-all duration-300">
+    </div>
+
+    <div
+      class="absolute ml-1 w-5 h-5 bg-white rounded-full shadow
+             transform peer-checked:translate-x-5 transition-all duration-300">
+    </div>
+
+  </label>
+
+                    </td>
+                    <td class="py-2 px-4">
+                        <button (click)="abrirModalEditar(u)" class="flex-1 rounded-xl bg-yellow-500 px-4 py-2 font-semibold text-gray-900 hover:bg-yellow-400 transition-all">
                       👁️ Editar
                     </button>
-                <button class="rounded-xl bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-500 disabled:bg-gray-600 transition-all">
+                        <button (click)="eliminar(u.id_usuario)" class="rounded-xl bg-red-600 px-4 py-2 font-semibold text-white hover:bg-red-500 disabled:bg-gray-600 transition-all">
                       🔄 Eliminar
                     </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- MODAL REGISTRO USUARIO -->
+        <div *ngIf="modalOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <!-- Contenedor azul -->
+            <div class="mx-4 w-full max-w-4xl rounded-3xl bg-blue-600 p-6">
+                <!-- Tarjeta blanca -->
+                <div class="rounded-2xl bg-white px-8 py-10 relative">
+
+                    <!-- Botón cerrar (X) -->
+                    <button type="button" (click)="modalOpen=false" class="absolute right-6 top-6 text-gray-400 hover:text-gray-600 text-xl">
+        ×
+      </button>
+
+                    <!-- Título -->
+                    <h2 class="mb-10 text-center text-3xl md:text-4xl font-bold text-blue-700">
+                        {{ editar ? 'Editar Usuario' : 'Registrar Usuario' }}
+                    </h2>
+
+                    <!-- Formulario -->
+                    <form [formGroup]="usuarioForm" (ngSubmit)="guardar()" class="space-y-6">
+
+                        <!-- Grid 2 columnas -->
+                        <div class="grid gap-6 md:grid-cols-2">
+                            <!-- Nombres -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Nombres:</label>
+                                <input type="text" formControlName="nombres" class="input" />
+                                <p *ngIf="getError('nombres')['required']" class="error-msg">Los nombres son obligatorios</p>
+                            </div>
+
+                            <!-- Apellidos -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Apellidos:</label>
+                                <input type="text" formControlName="apellidos" class="input" />
+                                <p *ngIf="getError('apellidos')['required']" class="error-msg">Los apellidos son obligatorios</p>
+                            </div>
+
+                            <!-- C.I. -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Nro C.I.:</label>
+                                <input type="text" formControlName="ci" class="input" />
+                                <p *ngIf="getError('ci')['required']" class="error-msg">El CI es obligatorio</p>
+                                <p *ngIf="getError('ci')['minlength']" class="error-msg">El CI es demasiado corto</p>
+                                <p *ngIf="getError('ci')['maxlength']" class="error-msg">El CI es demasiado largo</p>
+                                <p *ngIf="ciExists" class="error-msg">El CI ya está registrado</p>
+                            </div>
+
+                            <!-- Teléfono -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Teléfono:</label>
+                                <input type="text" formControlName="telefono" class="input" />
+                                <p *ngIf="getError('telefono')['required']" class="error-msg">Nro de telefono son obligatorios</p>
+                            </div>
+
+                            <!-- Dirección -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Dirección:</label>
+                                <input type="text" formControlName="direccion" class="input" />
+                                <p *ngIf="getError('direccion')['required']" class="error-msg">Dirección son obligatorios</p>
+                            </div>
+
+                            <!-- Rol -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Rol:</label>
+                                <select formControlName="id_rol" class="w-full border rounded-lg px-3 py-2">
+  <option [ngValue]="null" disabled>Selecciona un rol</option>
+  <option *ngFor="let r of roles" [ngValue]="r.id_rol">
+    {{ r.nombre }}
+  </option>
+</select>
+                                <p *ngIf="getError('rol')['required']" class="error-msg">Rol son obligatorios</p>
+
+                                <!-- si quieres, luego lo cambias a <select> -->
+                            </div>
+
+                            <!-- Correo -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Correo Electrónico:</label>
+                                <input type="email" formControlName="email" class="input" />
+                                <p *ngIf="getError('email')['required']" class="error-msg">El email es obligatorio</p>
+                                <p *ngIf="getError('email')['email']" class="error-msg">Email inválido</p>
+                                <p *ngIf="emailExists" class="error-msg">El email ya está registrado</p>
+                            </div>
+
+                            <!-- Password -->
+                            <div>
+                                <label class="block text-blue-700 text-sm font-semibold mb-1">Password:</label>
+                                <input type="password" formControlName="password" class="input" />
+                                <p *ngIf="getError('direccion')['required']" class="error-msg">Contraseña Obligatorio</p>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="mt-8 grid gap-4 md:grid-cols-2">
+                            <button type="submit" class="w-full rounded-xl bg-green-600 py-3 text-white font-semibold shadow-md hover:bg-green-700 disabled:opacity-60">
+            {{ editar ? 'Actualizar' : 'Guardar' }}
+          </button>
+
+                            <button type="button" (click)="modalOpen=false" class="w-full rounded-xl bg-red-600 py-3 text-white font-semibold shadow-md hover:bg-red-700">
+            Cancelar
+          </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

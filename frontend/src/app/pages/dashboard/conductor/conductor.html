@@ -1,8 +1,9 @@
 <div class="space-y-8">
     <h1 class="text-3xl font-bold text-gray-700">Panel del Conductor</h1>
+    <h1 class="text-3xl font-bold text-gray-700">Viajes</h1>
 
     <!-- STATS -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+    <!-- <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
         <div *ngFor="let s of stats" class="p-6 rounded-lg shadow bg-white flex items-center gap-4">
             <div class="{{ s.color }} text-white rounded-full p-4">
                 <i class="fa-solid {{ s.icon }} text-xl"></i>
@@ -13,11 +14,50 @@
                 <p class="text-2xl font-bold">{{ s.value }}</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="p-4">
+    <!-- <div class="p-4">
         <h1 class="text-2xl font-bold mb-4">Mi Ubicación en Tiempo Real</h1>
 
         <div id="map" class="w-full h-[500px] rounded shadow"></div>
-    </div>
+    </div> -->
+</div>
+
+<div *ngIf="error" class="error">{{ error }}</div>
+<div *ngIf="mensaje" class="mensaje">{{ mensaje }}</div>
+
+<!-- Tabla de Solicitudes de Viaje -->
+<table *ngIf="solicitudes.length > 0" class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Origen</th>
+            <th>Destino</th>
+            <th>Distancia (km)</th>
+            <th>Costo estimado</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let solicitud of solicitudes">
+            <td>{{ solicitud.id_solicitud }}</td>
+            <td>{{ solicitud.origen }}</td>
+            <td>{{ solicitud.destino }}</td>
+            <td>{{ solicitud.distancia_km }}</td>
+            <td>{{ solicitud.costo_estimado }}</td>
+            <td>
+                <!-- <button (click)="aceptarSolicitud(solicitud.id_solicitud)" class="btn btn-primary">Aceptar</button> -->
+                <button class="btn btn-primary">Aceptar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Mensaje si no hay solicitudes -->
+<div *ngIf="solicitudes.length === 0">
+    <p>No hay solicitudes de viaje pendientes.</p>
+</div>
+
+<div *ngIf="solicitudes.length === 0">
+    <p>No hay solicitudes de viaje pendientes.</p>
 </div>

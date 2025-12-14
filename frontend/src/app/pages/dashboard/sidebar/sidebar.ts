@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 export class Sidebar {
 
   private auth = inject(Auth);
-   rol = this.auth.Rol;
+  rol = this.auth.Rol;
 
   menu: any[] = [];
 
@@ -25,15 +25,27 @@ export class Sidebar {
   loadMenu() {
     if (this.rol === 'admin') {
       this.menu = [
-        { title: 'Dashboards', icon: 'fa-solid fa-home', children:[
-          { icon: 'fa-solid fa-chart-line', title: 'Principal', route: '/dashboard/admin' },
-        ]},
-        { title: 'Usuarios', icon: 'fa-solid fa-users', children:[
-            { icon: 'fa-solid fa-users', title: 'Usuarios', route: '/dashboard/usuarios' },
-        ]
+        {
+          title: 'Dashboards', icon: 'fa-solid fa-home', children: [
+            { icon: 'fa-solid fa-chart-line', title: 'Principal', route: '/dashboard/admin' },
+          ]
         },
-        { icon: 'fa-solid fa-car-side', title: 'Conductores', route: '/dashboard/conductores' },
-        { icon: 'fa-solid fa-user', title: 'Pasajeros', route: '/dashboard/admin/pasajeros' },
+        {
+          title: 'Usuarios', icon: 'fa-solid fa-users', children: [
+            { icon: 'fa-solid fa-users', title: 'Usuarios', route: '/dashboard/usuarios' },
+          ]
+        },
+
+        {
+          title: 'Conductores', icon: 'fa-solid fa-car-side', children: [
+            { icon: 'fa-solid fa-car-side', title: 'Conductores', route: '/dashboard/conductor-list' },
+          ]
+        },
+        {
+          title: 'Pasajeros', icon: 'fa-solid fa-user', children: [
+            { icon: 'fa-solid fa-user', title: 'Pasajeros', route: '/dashboard/pasajero' },
+          ]
+        },
         { icon: 'fa-solid fa-file', title: 'Reportes', route: '/dashboard/admin/reportes' }
       ];
     }
@@ -47,10 +59,20 @@ export class Sidebar {
 
     if (this.rol === 'pasajero') {
       this.menu = [
-        { icon: 'fa-solid fa-taxi', title: 'Pedir Taxi', route: '/dashboard/pasajero/pedir' },
+
+        {
+          title: 'Solicitud', icon: 'fa-solid fa-home', children: [
+            { icon: 'fa-solid fa-taxi', title: 'Taxi', route: '/dashboard/pasajero' },
+          ]
+        },
         { icon: 'fa-solid fa-clock', title: 'Historial', route: '/dashboard/pasajero/historial' },
       ];
     }
+  }
+
+  toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar?.classList.toggle('show');
   }
 
 }

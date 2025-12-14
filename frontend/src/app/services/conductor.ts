@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class Conductor {
   private api = 'http://localhost:4000/api/conductor';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Validar CI
   validateCI(ci: string): Observable<{ exists: boolean }> {
@@ -25,6 +25,10 @@ export class Conductor {
 
   getPerfilConductor(idUsuario: number): Observable<any> {
     return this.http.get(`${this.api}/perfil/${idUsuario}`);
+  }
+
+  obtenerConductores(): Observable<any> {
+    return this.http.get<any>(`${this.api}/listar`);  // Petición GET al backend
   }
 
 }

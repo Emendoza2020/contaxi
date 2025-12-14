@@ -1,23 +1,36 @@
 import express from 'express';
 import {
-    createUsuario,
+    listarUsuario,
+    crearUsuario,
+    actualizarUsuario,
+    eliminarUsuario,
+    actualizarEstado,
     getUsuarios,
     getUsuarioById,
-    updateUsuario,
-    deleteUsuario,
     perfilUsuario,
+    validateCI,
+    validateEmail
+
 } from '../controllers/usuarioController.js';
 import { verifyToken, checkRole } from '../middlewares/authJwt.js';
 
 const router = express.Router();
 
-router.post('/', verifyToken, checkRole(['admin']), createUsuario);
-router.put('/:id', verifyToken, checkRole(['admin']), updateUsuario);
-router.delete('/:id', verifyToken, checkRole(['admin']), deleteUsuario);
+router.get('/listar', verifyToken, listarUsuario);
+router.post('/registrar', verifyToken, crearUsuario);
+router.put('/actualizar/:id', verifyToken, actualizarUsuario);
+router.delete('/eliminar/:id', verifyToken, eliminarUsuario);
+router.put('/estado/:id', verifyToken, actualizarEstado);
+
+//router.put('/:id', verifyToken, checkRole(['admin']), updateUsuario);
 
 router.get('/', verifyToken, getUsuarios);
 router.get('/:id', verifyToken, getUsuarioById);
 
 router.get('/:id', verifyToken, perfilUsuario);
+
+router.post('/validate-ci', validateCI);
+router.post('/validate-email', validateEmail);
+
 
 export default router;

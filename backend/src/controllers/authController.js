@@ -57,29 +57,6 @@ export const register = async(req, res) => {
 };
 
 
-// Login
-// export const login = async(req, res) => {
-//     const { email, password } = req.body;
-
-//     if (!email || !password) return res.status(400).json({ message: 'Faltan campos obligatorios' });
-
-//     try {
-//         const usuario = await Usuario.findOne({ where: { email } });
-//         if (!usuario) return res.status(404).json({ message: 'Usuario no encontrado' });
-
-//         const isMatch = await bcrypt.compare(password, usuario.password);
-//         if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' });
-
-//         const token = jwt.sign({ id: usuario.id_usuario, email: usuario.email }, JWT_SECRET, {
-//             expiresIn: '1h',
-//         });
-
-//         res.json({ message: 'Login exitoso', token, usuario });
-//     } catch (err) {
-//         res.status(500).json({ message: 'Error en login', error: err.message });
-//     }
-// };
-
 export const login = async(req, res) => {
     try {
         const { email, password } = req.body;

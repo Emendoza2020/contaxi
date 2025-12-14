@@ -1,0 +1,65 @@
+<div class="min-h-screen bg-gray-100 p-4">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- FORMULARIO -->
+        <div class="bg-white rounded-xl shadow-lg p-6 space-y-4">
+            <h2 class="text-xl font-bold text-blue-600">🚕 Solicitud de Viaje</h2>
+
+            <form [formGroup]="viajeForm" class="space-y-4">
+
+                <!-- ORIGEN -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Origen</label>
+                    <input type="text" [formControl]="origenControl" class="w-full mt-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" placeholder="Ingrese origen" />
+
+                    <!-- SUGERENCIAS ORIGEN -->
+                    <ul *ngIf="sugerenciasOrigen.length" class="border rounded-lg mt-1 max-h-40 overflow-y-auto bg-white shadow z-50">
+                        <li *ngFor="let s of sugerenciasOrigen" (click)="seleccionarSugerencia(s, 'origen')" class="px-3 py-2 cursor-pointer hover:bg-blue-100">
+                            {{ s.display_name }}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- DESTINO -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Destino</label>
+                    <input type="text" [formControl]="destinoControl" class="w-full mt-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" placeholder="Ingrese destino" />
+
+                    <!-- SUGERENCIAS DESTINO -->
+                    <ul *ngIf="sugerenciasDestino.length" class="border rounded-lg mt-1 max-h-40 overflow-y-auto bg-white shadow z-50">
+                        <li *ngFor="let s of sugerenciasDestino" (click)="seleccionarSugerencia(s, 'destino')" class="px-3 py-2 cursor-pointer hover:bg-blue-100">
+                            {{ s.display_name }}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- INFO: Distancia y Costo -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <p class="text-sm text-gray-500">Distancia</p>
+                        <p class="text-lg font-semibold">{{ distanciaKm | number:'1.2-2' }} km</p>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-3">
+                        <p class="text-sm text-gray-500">Costo</p>
+                        <p class="text-lg font-semibold">{{ costo | number:'1.2-2' }} Bs</p>
+                    </div>
+                </div>
+
+                <!-- BOTÓN ENVIAR -->
+                <button type="button" (click)="enviarSolicitud()" [disabled]="!viajeForm.valid" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold disabled:opacity-50">
+          Enviar Solicitud 🚕
+        </button>
+                <!-- MENSAJES -->
+                <p *ngIf="mensaje" class="text-green-600 font-semibold">{{ mensaje }}</p>
+                <p *ngIf="error" class="text-red-600 font-semibold">{{ error }}</p>
+
+            </form>
+        </div>
+
+        <!-- MAPA -->
+        <div class="bg-white rounded-xl shadow-lg p-2">
+            <div id="map" class="h-[500px] w-full rounded-lg"></div>
+        </div>
+
+    </div>
+</div>

@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Auth } from '../../../services/auth';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { UserState } from '../../../services/user-state';
 
 @Component({
   selector: 'app-header',
@@ -13,22 +14,43 @@ import { RouterLink } from '@angular/router';
 export class Header {
 
    private auth = inject(Auth);
-   router: any;
+  private userState = inject(UserState);
+  private router = inject(Router);
 
-   constructor() {}
+  rol = '';
+  nombre = '';
 
-   rol = this.auth.Rol;
-   nombre = this.auth.Nombre;
+  toggleNotifications = false;
+  toggleProfile = false;
+  toggleMenuMobile = false;
 
-   toggleNotifications = false;
-   toggleProfile = false;
-   toggleMenuMobile = false;
+  usuario: any = {};
 
+  ngOnInit(): void {
 
-   usuario = {
-    nombre: this.auth.Nombre,
-    rol: this.auth.Rol
-  };
+    // --- Cargar valores desde Auth ---
+    this.rol = this.auth.Rol;
+    this.nombre = this.auth.Nombre;
+
+    const id = this.auth.Id;
+
+    console.log("ID desde Auth:", id);
+
+    // --- Evitar null y evitar guardar 0 ---
+    if (id && id !== 0) {
+      console.log("Guardando ID real:", id);
+      this.userState.setUserId(id);
+    } else {
+      console.warn("Header: No se encontró ID del usuario aún.");
+    }
+
+    // Construir objeto de usuario
+    this.usuario = {
+      nombre: this.nombre,
+      rol: this.rol,
+      id: id
+    };
+  }
 
   logout() {
     this.auth.logout();

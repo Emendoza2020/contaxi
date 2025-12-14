@@ -1,6 +1,8 @@
 <header class="w-full bg-[#12398a] shadow-md px-4 py-3 flex items-center justify-between">
     <!-- LEFT: Logo + Rol -->
-    <button id="btnToggleSidebar" class="md:hidden text-gray-700 text-2xl"><i class="fa-solid fa-bars"></i></button>
+    <button id="btnToggleSidebar" class="md:hidden text-gray-700 text-2xl">
+    <i class="fa-solid fa-bars"></i>
+  </button>
     <div class="flex items-center gap-4">
         <!-- Mobile toggle -->
         <button class="md:hidden text-gray-600 text-xl" (click)="toggleMenuMobile = !toggleMenuMobile">
@@ -59,7 +61,7 @@
             <!-- Dropdown Profile -->
             <div *ngIf="toggleProfile" class="absolute right-0 mt-3 w-44 bg-white shadow-lg rounded-lg p-3 z-50">
                 <p class="text-gray-600 px-3 py-2 border-b">{{ usuario.rol | titlecase }}</p>
-                <a routerLink="perfil" class="block py-2 text-gray-700 hover:bg-gray-100 rounded px-2 cursor-pointer">Perfil</a
+                <a routerLink="perfil/{{ usuario.id }}" class="block py-2 text-gray-700 hover:bg-gray-100 rounded px-2 cursor-pointer">Perfil</a
         >
         <a class="block py-2 text-gray-700 hover:bg-gray-100 rounded px-2 cursor-pointer"
           >Configuración</a
@@ -71,14 +73,5 @@
         >
       </div>
     </div>
-  </div>
-  <!-- MOBILE MENU (si deseas que aparezca el sidebar en móvil) -->
-  <div
-    *ngIf="toggleMenuMobile"
-    class="md:hidden bg-white shadow-lg p-4 absolute w-full top-16 left-0 z-50"
-  >
-    <p class="text-gray-600 text-sm">Menú para móvil</p>
-
-    <!-- Aquí puedo integrarte el sidebar completo en responsive -->
   </div>
 </header>

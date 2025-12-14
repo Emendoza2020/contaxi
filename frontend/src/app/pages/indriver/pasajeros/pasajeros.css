@@ -1,0 +1,88 @@
+/* PASAJEROS.CSS */
+
+
+/* Mapa */
+
+#map {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5rem;
+    /* Coincide con rounded-lg */
+}
+
+
+/* Dropdown de sugerencias */
+
+ul {
+    z-index: 50;
+    /* Encima del mapa y otros elementos */
+}
+
+li {
+    transition: background-color 0.2s ease;
+}
+
+
+/* Resaltar item al hover */
+
+li:hover {
+    background-color: #bfdbfe;
+    /* azul claro Tailwind */
+}
+
+
+/* Scroll en dropdown */
+
+ul {
+    max-height: 10rem;
+    /* 40 px * 10 aprox = 400px */
+    overflow-y: auto;
+}
+
+
+/* Scroll personalizado opcional */
+
+ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+ul::-webkit-scrollbar-thumb {
+    background-color: #2563eb;
+    /* azul Tailwind */
+    border-radius: 3px;
+}
+
+ul::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+    /* gris claro Tailwind */
+    border-radius: 3px;
+}
+
+
+/* Inputs */
+
+input {
+    transition: all 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+    /* focus azul Tailwind */
+}
+
+
+/* Botón */
+
+button:disabled {
+    cursor: not-allowed;
+}
+
+
+/* Responsivo */
+
+@media (max-width: 768px) {
+    #map {
+        height: 400px;
+    }
+}

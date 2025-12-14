@@ -17,14 +17,17 @@ import { CommonModule } from '@angular/common';
 })
 export class Login implements OnInit {
 
+  errorMessage: string = '';
+
   form!: FormGroup;
 
-  constructor(private auth:Auth, private fb: FormBuilder, private router: Router) {}
+  constructor(private auth: Auth, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', [Validators.required]],
+      termsAccepted: [false, Validators.requiredTrue]
     });
   }
 
@@ -39,10 +42,18 @@ export class Login implements OnInit {
         if (rol === 'admin') this.router.navigate(['/dashboard/admin']);
         if (rol === 'conductor') this.router.navigate(['/dashboard/conductor']);
         if (rol === 'pasajero') this.router.navigate(['/dashboard/pasajero']);
+        this.errorMessage = '';
+        console.log(rol);
       },
 
-      error: () => { alert('Credenciales incorrectas')}
-
+      error: (err) => {
+        //console.error('Error al iniciar sesión', err);
+        if (err.status === 500) {
+          this.errorMessage = 'Error al conectar a la base de datos.';
+        } else {
+          this.errorMessage = 'Credenciales incorrectas. Por favor verifica tu usuario y contraseña.';
+        }
+      }
     });
   }
 
@@ -54,6 +65,9 @@ export class Login implements OnInit {
     const control = this.form.get(controlName);
     return control && control.touched ? control.errors || {} : {};
   }
+  get isSubmitDisabled(): boolean {
+    return !this.form.valid;
+  }
 
- }
+}
 

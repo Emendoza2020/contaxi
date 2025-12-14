@@ -1,9 +1,7 @@
 <!-- NAVBAR -->
 <nav class="bg-blue-700 text-white flex justify-between items-center px-6 py-3 relative">
     <!-- LOGO -->
-    <div class="text-6xl font-bold tracking-wide">
-        Con<span class="text-yellow-400">Taxi</span>
-    </div>
+    <div class="text-6xl font-bold tracking-wide">Con<span class="text-yellow-400">Taxi</span></div>
 
     <!-- MENU DESKTOP -->
     <ul class="hidden md:flex space-x-6">
@@ -16,14 +14,22 @@
 
     <!-- BOTÓN APP -->
     <button class="hidden md:block bg-yellow-400 text-blue-900 font-semibold px-4 py-2 rounded-md hover:bg-yellow-300" routerLink="/login">
-   Iniciar Sesión
+    Iniciar Sesión
   </button>
 
     <!-- BOTÓN MENÚ MÓVIL -->
     <button (click)="toggleMenu()" class="md:hidden flex flex-col space-y-1">
-    <span class="w-6 h-0.5 bg-white transition" [class.rotate-45]="menuOpen" [class.translate-y-1.5]="menuOpen"></span>
+    <span
+      class="w-6 h-0.5 bg-white transition"
+      [class.rotate-45]="menuOpen"
+      [class.translate-y-1.5]="menuOpen"
+    ></span>
     <span class="w-6 h-0.5 bg-white" [class.opacity-0]="menuOpen"></span>
-    <span class="w-6 h-0.5 bg-white transition" [class.-rotate-45]="menuOpen" [class.-translate-y-1.5]="menuOpen"></span>
+    <span
+      class="w-6 h-0.5 bg-white transition"
+      [class.-rotate-45]="menuOpen"
+      [class.-translate-y-1.5]="menuOpen"
+    ></span>
   </button>
 
     <!-- MENU MÓVIL -->
@@ -51,14 +57,14 @@
             Tus ganancias dependen de factores como el número de viajes, la distancia recorrida y las condiciones del clima o las carreteras. ¡Únete ahora y comienza a ganar con ConTaxi!
         </p>
 
-        <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4 leading-tight">
-            REGISTRATE !!!
-        </h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-blue-800 mb-4 leading-tight">REGISTRATE !!!</h1>
         <div class="px-0 pt-4 pb-2 flex mb-4">
-            <button class="bg-yellow-400 hover:bg-blue-400 text-blue-900 font-bold py-3 px-3 border-b-4 border-blue-700 hover:border-blue-500 rounded mr-2 mb-2 w-full" routerLink="/register-conductor">CONDUCTOR
-              </button>
-            <button class="bg-yellow-400 hover:bg-blue-400 text-blue-900 font-bold py-3 px-3 border-b-4 border-blue-700 hover:border-blue-500 rounded mr-2 mb-2 w-full" routerLink="/register-pasajero">PASAJERO
-              </button>
+            <button class="bg-yellow-400 hover:bg-blue-400 text-blue-900 font-bold py-3 px-3 border-b-4 border-blue-700 hover:border-blue-500 rounded mr-2 mb-2 w-full" routerLink="/register-conductor">
+        CONDUCTOR
+      </button>
+            <button class="bg-yellow-400 hover:bg-blue-400 text-blue-900 font-bold py-3 px-3 border-b-4 border-blue-700 hover:border-blue-500 rounded mr-2 mb-2 w-full" routerLink="/register-pasajero">
+        PASAJERO
+      </button>
         </div>
     </div>
 

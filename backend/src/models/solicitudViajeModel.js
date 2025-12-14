@@ -11,7 +11,10 @@ const SolicitudViaje = sequelize.define('SolicitudViaje', {
     destino: { type: DataTypes.STRING(150), allowNull: false },
     distancia_km: { type: DataTypes.DECIMAL(5, 2) },
     costo_estimado: { type: DataTypes.DECIMAL(10, 2) },
-    estado: { type: DataTypes.ENUM('pendiente', 'aceptado', 'en_curso', 'finalizado', 'cancelado'), defaultValue: 'pendiente' },
+    estado: {
+        type: DataTypes.ENUM('pendiente', 'aceptado', 'en_curso', 'finalizado', 'cancelado'),
+        defaultValue: 'pendiente'
+    },
     fecha_solicitud: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
     fecha_registro: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
 }, {

@@ -26,7 +26,12 @@
                             }
                         ],
                         "styles": [
+                            "node_modules/leaflet/dist/leaflet.css",
+                            "node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css",
                             "src/styles.css"
+                        ],
+                        "scripts": [
+
                         ]
                     },
                     "configurations": {
@@ -88,6 +93,6 @@
         }
     },
     "cli": {
-      "analytics": "e7e636d7-8266-4562-8b00-eb73a1641f71"
+        "analytics": "e7e636d7-8266-4562-8b00-eb73a1641f71"
     }
 }

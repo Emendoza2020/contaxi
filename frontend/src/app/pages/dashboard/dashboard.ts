@@ -14,7 +14,7 @@ import { Sidebar } from './sidebar/sidebar';
 })
 export class Dashboard {
 
-  constructor(private auth: Auth) {}
+  constructor(private auth: Auth) { }
   logout() {
     this.auth.logout();
   }
@@ -22,7 +22,7 @@ export class Dashboard {
   rolUsuario = '';
 
   ngOnInit() {
-    this.rolUsuario = localStorage.getItem('rol') || 'admin' || 'conductor' ;
+    this.rolUsuario = localStorage.getItem('rol') || 'admin' || 'conductor';
   }
 
   collapsed = signal(false);
@@ -38,7 +38,4 @@ export class Dashboard {
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
-
-
-
 }

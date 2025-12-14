@@ -4,6 +4,7 @@ import Persona from '../models/personaModel.js';
 import Rol from '../models/rolModel.js';
 import Conductor from '../models/conductorModel.js';
 import Vehiculo from '../models/vehiculoModel.js';
+import '../models/index.js';
 
 export const registrarConductor = async(req, res) => {
     const { nombres, apellidos, ci, telefono, direccion, email, password, licencia, categoria_licencia, vehiculos } = req.body;
@@ -114,5 +115,20 @@ export const validateEmail = async(req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error al validar email' });
+    }
+};
+
+export const obtenerConductores = async(req, res) => {
+    try {
+        const conductores = await Conductor.findAll({
+            include: [{
+                model: Persona, // Incluir la relación de Persona
+                attributes: ['nombres', 'apellidos', 'telefono', 'direccion'] // Seleccionar los atributos que deseas mostrar
+            }]
+        });
+        return res.status(200).json(conductores);
+    } catch (error) {
+        console.error('Error al obtener los conductores:', error);
+        return res.status(500).json({ message: 'Error al obtener los conductores' });
     }
 };
